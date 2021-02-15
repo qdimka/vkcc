@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 func ReadAllLines(path string) ([]string, error) {
@@ -22,7 +23,7 @@ func ReadAllLines(path string) ([]string, error) {
 }
 
 func SaveLines(path string, lines []string) error {
-	file, err := os.Create(path)
+	file, err := create(path)
 	if err != nil {
 		return err
 	}
@@ -33,4 +34,11 @@ func SaveLines(path string, lines []string) error {
 		fmt.Fprintln(w, line)
 	}
 	return w.Flush()
+}
+
+func create(p string) (*os.File, error) {
+	if err := os.MkdirAll(filepath.Dir(p), os.ModePerm); err != nil {
+		return nil, err
+	}
+	return os.Create(p)
 }
