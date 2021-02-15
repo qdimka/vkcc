@@ -13,6 +13,7 @@ func main() {
 	fromFlag := flag.String("from", "links.txt", "Путь к файлу источнику")
 	toFlag := flag.String("to", "updated_links.txt", "Путь к файлу результату")
 	failedFlag := flag.String("failed", "failed_links.txt", "Список ссылок, которые не удалось сократить")
+	sleepFlag := flag.Duration("sleep", 1000, "Каждые 20 запросов, делаем паузу в 1000 миллисекунд")
 
 	flag.Parse()
 
@@ -38,8 +39,8 @@ func main() {
 		shortUrls = append(shortUrls, link)
 		log.Printf("Создание короткой ссылки для %s завершено", line)
 
-		if i%10 == 0 {
-			time.Sleep(500 * time.Millisecond)
+		if i != 0 && i%20 == 0 {
+			time.Sleep((*sleepFlag) * time.Millisecond)
 		}
 	}
 

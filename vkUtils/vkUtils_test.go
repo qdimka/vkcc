@@ -8,7 +8,7 @@ import (
 
 func Test(t *testing.T) {
 	shortener := NewShortener(&ShortenerOptions{
-		token: os.Getenv("ServiceKey"),
+		Token: os.Getenv("ServiceKey"),
 	})
 
 	shortUrl, err := shortener.CreateLink("https://www.google.com")

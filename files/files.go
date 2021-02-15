@@ -31,7 +31,7 @@ func SaveLines(path string, lines []string) error {
 
 	w := bufio.NewWriter(file)
 	for _, line := range lines {
-		fmt.Fprintln(w, line)
+		_, _ = fmt.Fprintln(w, line)
 	}
 	return w.Flush()
 }
